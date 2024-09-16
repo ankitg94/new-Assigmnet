@@ -1,8 +1,7 @@
-
 import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema({
-    userId:{
+    userid:{
         type:mongoose.Types.ObjectId,
         ref:"users",
     },
@@ -12,12 +11,17 @@ const TaskSchema = new mongoose.Schema({
     description:{
         type:String
     },
+    duedate:{
+         type:Date
+    },
+    remday:{
+        type:Number
+    },
     status:{
       type:String,
       enum:['pending','completed'],
       default:'pending'
-    }
-   
+    }   
 })
 const TaskData =mongoose.model('tasks',TaskSchema) 
 export default TaskData

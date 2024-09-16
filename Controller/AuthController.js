@@ -1,6 +1,7 @@
 import userData from "../Modals/AuthModal.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 //Register
 export const createDataController=async(req,res)=>{
 try{
@@ -9,7 +10,7 @@ try{
     
     if(!name || !email ||!password){
 
-        return res.status(400).send({
+            return res.status(400).send({
             success:false,
             message:"Please fill all the fields"
         })
@@ -58,7 +59,7 @@ try{
         })
     }
     
-    const user =await userData.findOne({email})
+    const user =await userData.findOne({email});
     if(!user){
         return res.status(401).send({
             success:false,
@@ -74,7 +75,9 @@ try{
     }
 
      const token =await jwt.sign({
-        id:user._id
+        id:user._id,
+        name:user.name,
+        email:user.email
         },
         process.env.JWT_SECRET,
         {expiresIn:"1d"})
